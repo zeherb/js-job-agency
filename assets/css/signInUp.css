@@ -1,0 +1,40 @@
+.btn {
+  background-color: rgb(117, 195, 0);
+  color: white;
+  font-weight: 400;
+  width: 100px;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+.btn:hover {
+  background-color: rgb(84, 139, 0);
+  color: white;
+  font-weight: 400;
+}
+li.button {
+  text-align: center;
+}
+.radio {
+  margin-top: 20px;
+}
+
+#signIn {
+  width: 100%;
+  margin-bottom: 50px;
+  margin-top: -50px;
+  display: none;
+}
+.right-content {
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+}
+#addon-wrapping {
+  height: 38px;
+}
+#signUp {
+  width: 100%;
+  margin-bottom: 50px;
+  margin-top: -50px;
+  /* display: none; */
+}

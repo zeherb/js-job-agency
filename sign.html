@@ -138,10 +138,45 @@
                 >
                 <ul id="dropDownSignIn" class="dropdown-menu">
                   <li class="dropdown-item">
-                    <a href="sign.html" class="dropdown-item">Sign In </a>
+                    <a href="#" class="dropdown-item">Sign In </a>
+                    <!-- <ul class="dropdown-menu signINUP">
+                      <li class="dropdown-item">
+                        <p>E-mail :</p>
+                        <div class="input-group flex-nowrap">
+                          <span class="input-group-text" id="addon-wrapping"
+                            >@</span
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Username"
+                            aria-label="Username"
+                            aria-describedby="addon-wrapping"
+                          />
+                        </div>
+                      </li>
+                      <li class="dropdown-item">
+                        <p>Password :</p>
+                        <div class="input-group flex-nowrap">
+                          <span class="input-group-text" id="addon-wrapping"
+                            >Pw</span
+                          >
+                          <input
+                            type="password"
+                            class="form-control"
+                            placeholder="password"
+                            aria-label="Username"
+                            aria-describedby="addon-wrapping"
+                          />
+                        </div>
+                      </li>
+                      <li class="dropdown-item button">
+                        <button type="button" class="btn">Sign In</button>
+                      </li>
+                    </ul> -->
                   </li>
                   <li class="dropdown-item">
-                    <a href="sign.html" class="dropdown-item">Sign Up </a>
+                    <a href="#" class="dropdown-item">Sign Up </a>
                   </li>
                 </ul>
               </li>
@@ -156,8 +191,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Terms</h1>
-            <span>Lorem ipsum dolor sit amet.</span>
+            <h1 id="sign-title">Terms</h1>
           </div>
         </div>
       </div>
@@ -167,72 +201,104 @@
       <div class="container">
         <div class="more-info-content">
           <div class="right-content">
-            <span>A) Lorem ipsum dolor sit amet</span>
-            <h5>
-              1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Laborum, iure.
-            </h5>
-            <br />
-            <p>
-              Fusce nec ultrices lectus. Duis nec scelerisque risus. Ut id
-              tempor turpis, ac dignissim ipsum. Nulla ullamcorper, ipsum vel
-              condimentum congue, mi odio vehicula tellus, sit amet malesuada
-              justo sem. Pellentesque in sagittis lacus, vel auctor sem. Quisque
-              eu quam eleifend, ullamcorper dui nec, luctus quam.
-            </p>
-
-            <br />
-
-            <span>A) Lorem ipsum dolor sit amet</span>
-            <h5>
-              1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Laborum, iure.
-            </h5>
-            <br />
-            <p>
-              Fusce nec ultrices lectus. Duis nec scelerisque risus. Ut id
-              tempor turpis, ac dignissim ipsum. Nulla ullamcorper, ipsum vel
-              condimentum congue, mi odio vehicula tellus, sit amet malesuada
-              justo sem. Pellentesque in sagittis lacus, vel auctor sem. Quisque
-              eu quam eleifend, ullamcorper dui nec, luctus quam.
-            </p>
-
-            <br />
-
-            <span>A) Lorem ipsum dolor sit amet</span>
-            <h5>
-              1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Laborum, iure.
-            </h5>
-            <br />
-            <p>
-              Fusce nec ultrices lectus. Duis nec scelerisque risus. Ut id
-              tempor turpis, ac dignissim ipsum. Nulla ullamcorper, ipsum vel
-              condimentum congue, mi odio vehicula tellus, sit amet malesuada
-              justo sem. Pellentesque in sagittis lacus, vel auctor sem. Quisque
-              eu quam eleifend, ullamcorper dui nec, luctus quam.
-            </p>
-
-            <br />
-
-            <span>A) Lorem ipsum dolor sit amet</span>
-            <h5>
-              1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Laborum, iure.
-            </h5>
-            <br />
-            <p>
-              Fusce nec ultrices lectus. Duis nec scelerisque risus. Ut id
-              tempor turpis, ac dignissim ipsum. Nulla ullamcorper, ipsum vel
-              condimentum congue, mi odio vehicula tellus, sit amet malesuada
-              justo sem. Pellentesque in sagittis lacus, vel auctor sem. Quisque
-              eu quam eleifend, ullamcorper dui nec, luctus quam.
-            </p>
-
-            <br />
-            <br />
-            <br />
-            <br />
+            <div>
+              <ul id="signIn">
+                <li>
+                  <p>E-mail :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Username"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>Password :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Pw</span>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="password"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                </li>
+                <li class="button">
+                  <button type="button" class="btn">Sign In</button>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <ul id="signUp">
+                <li>
+                  <p>First Name:</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Fn</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Peter"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>Last Name :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Ln</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Parker"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>E-mail :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="email@example.com"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>Password :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Pw</span>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="password"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                </li>
+                <li class="radio">
+                  <label for="Company"> Company :</label>
+                  <input type="radio" name="userType" id="Company" />
+                  &nbsp; <label for="User"> Normal User :</label>
+                  <input type="radio" name="userType" id="User" />
+                </li>
+                <li class="button">
+                  <button type="button" class="btn">Sign Up</button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
