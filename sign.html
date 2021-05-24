@@ -138,45 +138,14 @@
                 >
                 <ul id="dropDownSignIn" class="dropdown-menu">
                   <li class="dropdown-item">
-                    <a href="#" class="dropdown-item">Sign In </a>
-                    <!-- <ul class="dropdown-menu signINUP">
-                      <li class="dropdown-item">
-                        <p>E-mail :</p>
-                        <div class="input-group flex-nowrap">
-                          <span class="input-group-text" id="addon-wrapping"
-                            >@</span
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Username"
-                            aria-label="Username"
-                            aria-describedby="addon-wrapping"
-                          />
-                        </div>
-                      </li>
-                      <li class="dropdown-item">
-                        <p>Password :</p>
-                        <div class="input-group flex-nowrap">
-                          <span class="input-group-text" id="addon-wrapping"
-                            >Pw</span
-                          >
-                          <input
-                            type="password"
-                            class="form-control"
-                            placeholder="password"
-                            aria-label="Username"
-                            aria-describedby="addon-wrapping"
-                          />
-                        </div>
-                      </li>
-                      <li class="dropdown-item button">
-                        <button type="button" class="btn">Sign In</button>
-                      </li>
-                    </ul> -->
+                    <a href="#" onclick="signInPage()" class="dropdown-item"
+                      >Sign In
+                    </a>
                   </li>
                   <li class="dropdown-item">
-                    <a href="#" class="dropdown-item">Sign Up </a>
+                    <a href="#" onclick="signUpPage()" class="dropdown-item"
+                      >Sign Up
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -191,7 +160,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1 id="sign-title">Terms</h1>
+            <h1 id="sign-title"></h1>
           </div>
         </div>
       </div>
@@ -200,9 +169,9 @@
     <div class="more-info about-info">
       <div class="container">
         <div class="more-info-content">
-          <div class="right-content">
-            <div>
-              <ul id="signIn">
+          <div id="formContent" class="right-content">
+            <div id="signIn">
+              <ul>
                 <li>
                   <p>E-mail :</p>
                   <div class="input-group flex-nowrap">
@@ -230,33 +199,48 @@
                   </div>
                 </li>
                 <li class="button">
-                  <button type="button" class="btn">Sign In</button>
+                  <button type="button" onclick="signIn()" class="btn">
+                    Sign In
+                  </button>
                 </li>
               </ul>
             </div>
-            <div>
-              <ul id="signUp">
+            <div id="signUpBtns">
+              <button type="button" onclick="signUpAsCompany()" class="btn">
+                Sign Up <br />
+                as a Company
+              </button>
+              <button type="button" onclick="signUpAsUser()" class="btn">
+                Sign Up <br />
+                as a User
+              </button>
+            </div>
+            <div id="signUpCompany">
+              <ul>
                 <li>
-                  <p>First Name:</p>
+                  <p>Company Name:</p>
                   <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Fn</span>
+                    <span class="input-group-text" id="addon-wrapping">Cn</span>
                     <input
+                      id="companyName"
                       type="text"
                       class="form-control"
-                      placeholder="Peter"
+                      placeholder="Company name"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
+                    <span style="color: red" class="error" id="CNError"></span>
                   </div>
                 </li>
                 <li>
-                  <p>Last Name :</p>
+                  <p>Company description (Unnecessary) :</p>
                   <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Ln</span>
+                    <span class="input-group-text" id="addon-wrapping">D</span>
                     <input
+                      id="companyDescription"
                       type="text"
                       class="form-control"
-                      placeholder="Parker"
+                      placeholder="Company description"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
@@ -267,12 +251,14 @@
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">@</span>
                     <input
+                      id="companyEmail"
                       type="text"
                       class="form-control"
                       placeholder="email@example.com"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
+                    <span style="color: red" class="error" id="CEError"></span>
                   </div>
                 </li>
                 <li>
@@ -280,22 +266,96 @@
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">Pw</span>
                     <input
+                      id="companyPassword"
                       type="password"
                       class="form-control"
                       placeholder="password"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
+                    <span style="color: red" class="error" id="CPWError"></span>
                   </div>
                 </li>
-                <li class="radio">
-                  <label for="Company"> Company :</label>
-                  <input type="radio" name="userType" id="Company" />
-                  &nbsp; <label for="User"> Normal User :</label>
-                  <input type="radio" name="userType" id="User" />
-                </li>
                 <li class="button">
-                  <button type="button" class="btn">Sign Up</button>
+                  <button type="button" onclick="registerCompany()" class="btn">
+                    Sign Up
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div id="signUpUser">
+              <ul>
+                <li>
+                  <p>First Name:</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Fn</span>
+                    <input
+                      id="firstName"
+                      type="text"
+                      class="form-control"
+                      placeholder="Peter"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                    <span style="color: red" class="error" id="FNError"></span>
+                  </div>
+                </li>
+                <li>
+                  <p>Last Name :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Ln</span>
+                    <input
+                      id="lastName"
+                      type="text"
+                      class="form-control"
+                      placeholder="Parker"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                    <span style="color: red" class="error" id="LNError"></span>
+                  </div>
+                </li>
+                <li>
+                  <p>E-mail :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input
+                      id="userEmail"
+                      type="text"
+                      class="form-control"
+                      placeholder="email@example.com"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    /><span
+                      style="color: red"
+                      class="error"
+                      id="UEError"
+                    ></span>
+                  </div>
+                </li>
+                <li>
+                  <p>Password :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Pw</span>
+                    <input
+                      id="userPassword"
+                      type="password"
+                      class="form-control"
+                      placeholder="password"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    /><span
+                      style="color: red"
+                      class="error"
+                      id="UPWError"
+                    ></span>
+                  </div>
+                </li>
+
+                <li class="button">
+                  <button type="button" onclick="registerUser()" class="btn">
+                    Sign Up
+                  </button>
                 </li>
               </ul>
             </div>
@@ -437,6 +497,7 @@
     <script src="assets/js/owl.js"></script>
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/accordions.js"></script>
+    <script src="assets/js/signInUp.js"></script>
 
     <script language="text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
