@@ -1,14 +1,49 @@
 var companies = JSON.parse(localStorage.getItem("companies")) || [],
-    users = JSON.parse(localStorage.getItem("users")) || [];
+    users = JSON.parse(localStorage.getItem("users")) || [],
+    connectedUser = JSON.parse(localStorage.getItem("connectedUser")) || null,
+    connectedCompany = JSON.parse(localStorage.getItem("connectedCompany")) || null,
+    demandedPage = localStorage.getItem("demanded page") || null;
+
+function whatToShow() {
+    if (connectedUser !== null || connectedCompany !== null) {
+        document.getElementById("signUpUser").style.display = "none"
+        document.getElementById("signUpCompany").style.display = "none"
+        document.getElementById("formContent").style.height = "450px"
+        document.getElementById("editProfile").style.display = "flex"
+        if (connectedUser !== null) {
+            document.getElementById("LnD").innerHTML = "LN"
+            document.getElementById("editFirstName").value = connectedUser.firstName
+            document.getElementById("editLastName").value = connectedUser.lastName
+            document.getElementById("editEmail").value = connectedUser.email
+            document.getElementById("editPassword").value = connectedUser.password
+        } else {
+            document.getElementById("LnD").innerHTML = "D"
+            document.getElementById("editFirstName").value = connectedCompany.name
+            document.getElementById("editLastName").value = connectedCompany.description
+            document.getElementById("editEmail").value = connectedCompany.email
+            document.getElementById("editPassword").value = connectedCompany.password
+        }
+    } else if (demandedPage == "Sign In") {
+        signInPage()
+    } else {
+        signUpPage()
+    }
+}
+whatToShow()
+
 
 
 function signInPage() {
+    localStorage.setItem("demanded page", "Sign In")
     document.getElementById("sign-title").innerHTML = "Sign In"
     document.getElementById("signIn").style.display = "flex"
     document.getElementById("signUpBtns").style.display = "none"
+    document.getElementById("signUpUser").style.display = "none"
+    document.getElementById("signUpCompany").style.display = "none"
     document.getElementById("formContent").style.height = "200px"
 }
 function signUpPage() {
+    localStorage.setItem("demanded page", "Sign Up")
     document.getElementById("sign-title").innerHTML = "Sign Up"
     document.getElementById("signIn").style.display = "none"
     document.getElementById("signUpBtns").style.display = "flex"
@@ -72,6 +107,8 @@ function registerCompany() {
             document.getElementById("companyDescription").value = ""
             document.getElementById("companyEmail").value = ""
             document.getElementById("companyPassword").value = ""
+            localStorage.setItem("demanded page", "Sign In")
+            location.reload()
         }
     }
 
@@ -137,6 +174,232 @@ function registerUser() {
             document.getElementById("lastName").value = ""
             document.getElementById("userEmail").value = ""
             document.getElementById("userPassword").value = ""
+            localStorage.setItem("demanded page", "Sign In")
+            location.reload()
         }
     }
+}
+function signIn() {
+    const email = document.getElementById("SIEmail").value,
+        password = document.getElementById("SIPassword").value;
+    var thisIsACompany = false, thisIsAUser = false;
+    for (var index = 0; index < companies.length; index++) {
+        if (companies[index].email == email) {
+            thisIsACompany = true
+            break
+        }
+    }
+    if (thisIsACompany == false) {
+        for (index = 0; index < users.length; index++) {
+            if (users[index].email == email) {
+                thisIsAUser = true
+                break
+            }
+        }
+    } else {
+        if (companies[index].password == password) {
+            document.getElementById("SIEError").innerHTML = ""
+            document.getElementById("SIPWError").innerHTML = ""
+            localStorage.setItem("connectedCompany", JSON.stringify(companies[index]))
+            document.getElementById("SIEmail").value = ""
+            document.getElementById("SIPassword").value = ""
+            localStorage.removeItem("demanded page")
+            window.location.href = "index.html"
+        } else {
+            document.getElementById("SIEError").innerHTML = ""
+            document.getElementById("SIPWError").innerHTML = "wrong password!"
+        }
+    }
+    if (thisIsAUser == true) {
+        if (users[index].password == password) {
+            document.getElementById("SIEError").innerHTML = ""
+            document.getElementById("SIPWError").innerHTML = ""
+            localStorage.setItem("connectedUser", JSON.stringify(users[index]))
+            document.getElementById("SIEmail").value = ""
+            document.getElementById("SIPassword").value = ""
+            localStorage.removeItem("demanded page")
+            window.location.href = "index.html"
+        } else {
+            document.getElementById("SIEError").innerHTML = ""
+            document.getElementById("SIPWError").innerHTML = "wrong password!"
+        }
+    }
+    if (thisIsAUser == false && thisIsACompany == false) {
+        document.getElementById("SIEError").innerHTML = "this e-mail do not exist"
+        document.getElementById("SIPWError").innerHTML = ""
+    }
+
+}
+function editProfile() {
+    // edit company
+    if (connectedCompany !== null) {
+        const upValues = {
+            name: document.getElementById("editFirstName").value,
+            description: document.getElementById("editLastName").value,
+            email: document.getElementById("editEmail").value,
+            password: document.getElementById("editPassword").value
+        }
+        // checking name
+        var newName = upValues.name.trim()
+        if (newName.length < 2) {
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = "INVALID NAME"
+            // checking password
+        } else if (upValues.password.length < 2) {
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = "INVALID PASSWORD"
+        } else {
+            // checking email existance
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = ""
+            if (upValues.email !== connectedCompany.email) {
+                var exist = false
+                companies.forEach(element => {
+                    if (element.email == upValues.email) {
+                        exist = true
+                    }
+                });
+                if (exist == false) {
+                    users.forEach(element => {
+                        if (element.email == upValues.email) {
+                            exist = true
+                        }
+                    });
+                }
+                if (exist == true) {
+                    document.getElementById("EEError").innerHTML = "This e-mail already exists"
+                } else {
+                    document.getElementById("EEError").innerHTML = ""
+                    for (let index = 0; index < companies.length; index++) {
+                        if (companies[index].email == connectedCompany.email) {
+                            companies[index] = upValues
+                            break
+                        }
+
+                    }
+                    connectedCompany = upValues
+                    localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
+                    localStorage.setItem("companies", JSON.stringify(companies))
+                    document.getElementById("editFirstName").value = ""
+                    document.getElementById("editLastName").value = ""
+                    document.getElementById("editEmail").value = ""
+                    document.getElementById("editPassword").value = ""
+
+                    window.location.href = "index.html"
+                }
+
+            } else {
+                for (let index = 0; index < companies.length; index++) {
+                    if (companies[index].email == connectedCompany.email) {
+                        companies[index] = upValues
+                        break
+                    }
+
+                }
+                connectedCompany = upValues
+                localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
+                localStorage.setItem("companies", JSON.stringify(companies))
+                document.getElementById("editFirstName").value = ""
+                document.getElementById("editLastName").value = ""
+                document.getElementById("editEmail").value = ""
+                document.getElementById("editPassword").value = ""
+
+                window.location.href = "index.html"
+            }
+        }
+    }
+    // edit user
+    if (connectedUser !== null) {
+        const upValues = {
+            firstName: document.getElementById("editFirstName").value,
+            lastName: document.getElementById("editLastName").value,
+            email: document.getElementById("editEmail").value,
+            password: document.getElementById("editPassword").value
+        }
+        // checking name
+        var newName = upValues.firstName.trim(), newLast = upValues.lastName.trim()
+        if (newName.length < 2) {
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = ""
+            document.getElementById("ELNError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = "INVALID first NAME"
+
+        } else if (newLast.length < 2) {
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = ""
+            document.getElementById("ELNError").innerHTML = "INVALID Last NAME"
+            // checking password
+        } else if (upValues.password.length < 2) {
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = ""
+            document.getElementById("ELNError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = "INVALID PASSWORD"
+        } else {
+            // checking email existance
+            document.getElementById("EEError").innerHTML = ""
+            document.getElementById("ELNError").innerHTML = ""
+            document.getElementById("EFNError").innerHTML = ""
+            document.getElementById("EPWError").innerHTML = ""
+            if (upValues.email !== connectedUser.email) {
+                var exist = false
+                companies.forEach(element => {
+                    if (element.email == upValues.email) {
+                        exist = true
+                    }
+                });
+                if (exist == false) {
+                    users.forEach(element => {
+                        if (element.email == upValues.email) {
+                            exist = true
+                        }
+                    });
+                }
+                if (exist == true) {
+                    document.getElementById("EEError").innerHTML = "This e-mail already exists"
+                } else {
+                    document.getElementById("EEError").innerHTML = ""
+                    for (let index = 0; index < users.length; index++) {
+                        if (users[index].email == connectedUser.email) {
+                            users[index] = upValues
+                            break
+                        }
+
+                    }
+                    connectedUser = upValues
+                    localStorage.setItem("connectedUser", JSON.stringify(connectedUser))
+                    localStorage.setItem("users", JSON.stringify(users))
+                    document.getElementById("editFirstName").value = ""
+                    document.getElementById("editLastName").value = ""
+                    document.getElementById("editEmail").value = ""
+                    document.getElementById("editPassword").value = ""
+
+                    window.location.href = "index.html"
+                }
+
+            } else {
+                for (let index = 0; index < companies.length; index++) {
+                    if (users[index].email == connectedUser.email) {
+                        users[index] = upValues
+                        break
+                    }
+
+                }
+                connectedUser = upValues
+                localStorage.setItem("connectedUser", JSON.stringify(connectedUser))
+                localStorage.setItem("users", JSON.stringify(users))
+                document.getElementById("editFirstName").value = ""
+                document.getElementById("editLastName").value = ""
+                document.getElementById("editEmail").value = ""
+                document.getElementById("editPassword").value = ""
+
+                window.location.href = "index.html"
+            }
+        }
+    }
+
+
 }

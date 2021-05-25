@@ -28,9 +28,11 @@ li.button {
   align-content: center;
   align-items: center;
 }
-#addon-wrapping {
+#addon-wrapping,
+#LnD {
   height: 38px;
 }
+
 #signUpUser {
   top: 95%;
   width: 80%;
@@ -57,6 +59,16 @@ li.button {
 }
 #signUpCompany {
   top: 95%;
+  width: 80%;
+  position: absolute;
+  left: 10%;
+  display: none;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+#editProfile {
+  top: 75%;
   width: 80%;
   position: absolute;
   left: 10%;

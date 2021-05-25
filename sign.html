@@ -177,12 +177,14 @@
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">@</span>
                     <input
+                      id="SIEmail"
                       type="text"
                       class="form-control"
                       placeholder="Username"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
+                    <span style="color: red" class="error" id="SIEError"></span>
                   </div>
                 </li>
                 <li>
@@ -190,12 +192,18 @@
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping">Pw</span>
                     <input
+                      id="SIPassword"
                       type="password"
                       class="form-control"
                       placeholder="password"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
+                    <span
+                      style="color: red"
+                      class="error"
+                      id="SIPWError"
+                    ></span>
                   </div>
                 </li>
                 <li class="button">
@@ -359,6 +367,82 @@
                 </li>
               </ul>
             </div>
+            <div id="editProfile">
+              <ul>
+                <li>
+                  <p>First Name:</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Fn</span>
+                    <input
+                      id="editFirstName"
+                      type="text"
+                      class="form-control"
+                      placeholder="Peter"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                    <span style="color: red" class="error" id="EFNError"></span>
+                  </div>
+                </li>
+                <li>
+                  <p>Last Name :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="LnD"></span>
+                    <input
+                      id="editLastName"
+                      type="text"
+                      class="form-control"
+                      placeholder="Parker"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                    <span style="color: red" class="error" id="ELNError"></span>
+                  </div>
+                </li>
+                <li>
+                  <p>E-mail :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input
+                      id="editEmail"
+                      type="text"
+                      class="form-control"
+                      placeholder="email@example.com"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    /><span
+                      style="color: red"
+                      class="error"
+                      id="EEError"
+                    ></span>
+                  </div>
+                </li>
+                <li>
+                  <p>Password :</p>
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Pw</span>
+                    <input
+                      id="editPassword"
+                      type="password"
+                      class="form-control"
+                      placeholder="password"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    /><span
+                      style="color: red"
+                      class="error"
+                      id="EPWError"
+                    ></span>
+                  </div>
+                </li>
+
+                <li class="button">
+                  <button type="button" onclick="editProfile()" class="btn">
+                    Update
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -498,6 +582,7 @@
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/accordions.js"></script>
     <script src="assets/js/signInUp.js"></script>
+    <script src="assets/js/extra.js"></script>
 
     <script language="text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
