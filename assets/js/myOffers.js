@@ -17,7 +17,7 @@ affichage()
 function offerVisibility() {
     document.getElementById("addUpdateBtn").innerHTML = "Add"
     document.getElementById("addUpdateBtn").setAttribute("class", "btn page-button")
-    document.getElementById("addUpdateBtn").setAttribute("onclick", "addOffer")
+    document.getElementById("addUpdateBtn").setAttribute("onclick", "addOffer()")
     document.getElementById("offersInputs").style.display = "flex"
     document.getElementById("formContent").style.minHeight = "500px"
     document.getElementById("offerEmail").value = connectedCompany.email
@@ -26,11 +26,18 @@ function offerVisibility() {
 function addOffer() {
     var dat = new Date(),
         datee = dat.toLocaleDateString() + " " + dat.toLocaleTimeString();
+
+    if (document.getElementById("offerImageInput").value == "") {
+        var offerImage = ""
+    } else {
+        offerImage = document.getElementById("offerImageInput").files[0].name
+    }
+
     const offer = {
         title: document.getElementById("offerTitle").value,
         decription: document.getElementById("offerDescription").value,
         email: document.getElementById("offerEmail").value,
-        image: document.getElementById("offerImageInput").files[0].name,
+        image: offerImage,
         date: datee
     }
     var fileExtention = offer.image.split(".").pop()
