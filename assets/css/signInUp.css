@@ -8,14 +8,10 @@
 }
 .btn:hover {
   background-color: rgb(84, 139, 0);
-  color: white;
   font-weight: 400;
 }
 li.button {
   text-align: center;
-}
-.radio {
-  margin-top: 20px;
 }
 
 #signIn {

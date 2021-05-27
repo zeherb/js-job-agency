@@ -1,0 +1,55 @@
+.page-button {
+  background-color: rgb(117, 195, 0);
+  color: white;
+  font-weight: 400;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+.page-button-if-update {
+  font-weight: 400;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+.page-button:hover {
+  background-color: rgb(84, 139, 0);
+  color: white;
+  font-weight: 400;
+}
+#formContent {
+  display: flex;
+  margin-bottom: 50px;
+  margin-top: -120px;
+}
+
+#addOffers {
+  flex-direction: column;
+  align-self: flex-end;
+}
+span.error {
+  color: red;
+  position: absolute;
+  top: -60%;
+}
+#offersInputs {
+  display: none;
+  position: absolute;
+}
+@media (max-width: 767.99px) {
+  #formContent {
+    flex-direction: column;
+  }
+}
+.card img {
+  width: 100%;
+  height: 100%;
+}
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-buttons button {
+  margin: 10px;
+}

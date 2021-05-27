@@ -4,6 +4,7 @@ var companies = JSON.parse(localStorage.getItem("companies")) || [],
     connectedCompany = JSON.parse(localStorage.getItem("connectedCompany")) || null,
     demandedPage = localStorage.getItem("demanded page") || null;
 
+
 function whatToShow() {
     if (connectedUser !== null || connectedCompany !== null) {
         document.getElementById("signUpUser").style.display = "none"
@@ -35,6 +36,9 @@ whatToShow()
 
 function signInPage() {
     localStorage.setItem("demanded page", "Sign In")
+    document.getElementById("signInLink").setAttribute("class", "dropdown-item active")
+    document.getElementById("signUpLink").setAttribute("class", "dropdown-item ")
+
     document.getElementById("sign-title").innerHTML = "Sign In"
     document.getElementById("signIn").style.display = "flex"
     document.getElementById("signUpBtns").style.display = "none"
@@ -44,6 +48,8 @@ function signInPage() {
 }
 function signUpPage() {
     localStorage.setItem("demanded page", "Sign Up")
+    document.getElementById("signInLink").setAttribute("class", "dropdown-item")
+    document.getElementById("signUpLink").setAttribute("class", "dropdown-item active")
     document.getElementById("sign-title").innerHTML = "Sign Up"
     document.getElementById("signIn").style.display = "none"
     document.getElementById("signUpBtns").style.display = "flex"
@@ -65,7 +71,8 @@ function registerCompany() {
         name: document.getElementById("companyName").value,
         description: document.getElementById("companyDescription").value,
         email: document.getElementById("companyEmail").value,
-        password: document.getElementById("companyPassword").value
+        password: document.getElementById("companyPassword").value,
+        offers: []
     }
     // checking name
     var myName = company.name.trim()
@@ -180,18 +187,20 @@ function registerUser() {
     }
 }
 function signIn() {
-    const email = document.getElementById("SIEmail").value,
+    const email = document.getElementById("SIEmail").value.toUpperCase(),
         password = document.getElementById("SIPassword").value;
     var thisIsACompany = false, thisIsAUser = false;
     for (var index = 0; index < companies.length; index++) {
-        if (companies[index].email == email) {
+        var compEmail = companies[index].email.toUpperCase()
+        if (compEmail == email) {
             thisIsACompany = true
             break
         }
     }
     if (thisIsACompany == false) {
         for (index = 0; index < users.length; index++) {
-            if (users[index].email == email) {
+            var userEmail = users[index].email.toUpperCase()
+            if (userEmail == email) {
                 thisIsAUser = true
                 break
             }
@@ -237,7 +246,8 @@ function editProfile() {
             name: document.getElementById("editFirstName").value,
             description: document.getElementById("editLastName").value,
             email: document.getElementById("editEmail").value,
-            password: document.getElementById("editPassword").value
+            password: document.getElementById("editPassword").value,
+            offers: []
         }
         // checking name
         var newName = upValues.name.trim()
@@ -273,14 +283,16 @@ function editProfile() {
                     document.getElementById("EEError").innerHTML = "This e-mail already exists"
                 } else {
                     document.getElementById("EEError").innerHTML = ""
+                    upValues.offers = connectedCompany.offers
+                    connectedCompany = upValues
                     for (let index = 0; index < companies.length; index++) {
                         if (companies[index].email == connectedCompany.email) {
-                            companies[index] = upValues
+                            companies[index] = connectedCompany
                             break
                         }
 
                     }
-                    connectedCompany = upValues
+
                     localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
                     localStorage.setItem("companies", JSON.stringify(companies))
                     document.getElementById("editFirstName").value = ""
@@ -299,6 +311,8 @@ function editProfile() {
                     }
 
                 }
+                upValues.offers = connectedCompany.offers
+                connectedCompany = upValues
                 connectedCompany = upValues
                 localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
                 localStorage.setItem("companies", JSON.stringify(companies))
