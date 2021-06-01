@@ -1,14 +1,21 @@
 var companies = JSON.parse(localStorage.getItem("companies")) || [],
     users = JSON.parse(localStorage.getItem("users")) || [],
-    connectedCompany = JSON.parse(localStorage.getItem("connectedCompany"));
+    connectedCompany = JSON.parse(localStorage.getItem("connectedCompany")),
+    offers = JSON.parse(localStorage.getItem("offers")) || [];
+
 
 function affichage() {
-    connectedCompany.offers.forEach(element => {
-        document.getElementById("offers").innerHTML +=
-            "<tr class='card mb-3'><td class='row g-0' ><div class='col-md-4'><img src='assets/images/offer images/" + element.image + "' alt='offer image'></div>" +
-            "<div class='col-md-5'><div class='card-body'><h5 class='card-title'>" + element.title + "</h5>" + "<p class='card-text'>" + element.decription + "</p>" +
-            "<p class='card-text'> Contact : " + element.email + "</p>" + "<p class='card-text''><small class='text-muted'>" + element.date + "</small></p></div></div>" +
-            "<div class='card-buttons col-md-3'><button type='button' class='btn btn-warning' onclick='updateVisibility()'>Update</button> <button type='button' class='btn btn-danger' onclick='deleteOffer()'>Delete</button></div></td></tr>"
+    var imageIndex = -1
+    offers.forEach(element => {
+        imageIndex++
+        if (connectedCompany.email == element.companyEmail) {
+            document.getElementById("offers").innerHTML +=
+                "<tr class='card mb-3'><td class='row g-0' ><div class='col-md-4'><img src='" + element.image + "' alt='offer image'></div>" +
+                "<div class='col-md-5'><div class='card-body'><h5 class='card-title'>" + element.title + "</h5>" + "<p class='card-text'>" + element.decription + "</p>" +
+                "<p class='card-text'> Contact : " + element.email + "</p>" + "<p class='card-text''><small class='text-muted'>" + element.date + "</small></p></div></div>" +
+                "<div class='card-buttons col-md-3'><button type='button' class='btn btn-warning' onclick='updateVisibility()'>Update</button> <button type='button' class='btn btn-danger' onclick='deleteOffer()'>Delete</button></div></td></tr>"
+        }
+
     });
 }
 affichage()
@@ -33,9 +40,10 @@ function addOffer() {
         offerImage = document.getElementById("offerImageInput").files[0].name
     }
 
-    const offer = {
+    var offer = {
         title: document.getElementById("offerTitle").value,
         decription: document.getElementById("offerDescription").value,
+        companyEmail: connectedCompany.email,
         email: document.getElementById("offerEmail").value,
         image: offerImage,
         date: datee
@@ -69,35 +77,39 @@ function addOffer() {
         document.getElementById("ODError").innerHTML = ""
         document.getElementById("OEError").innerHTML = ""
         document.getElementById("OIError").innerHTML = ""
-        connectedCompany.offers.push(offer)
-        localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
-        for (var index = 0; index < companies.length; index++) {
-            if (companies[index].email == connectedCompany.email) {
-                companies[index] = connectedCompany
-                break
-            }
+        const image = document.getElementById("offerImageInput").files[0],
+            reader = new FileReader();
+        reader.readAsDataURL(image)
+        reader.onload = () => {
+            offer.image = reader.result
+            console.log(offer.image);
+            console.log(reader.result);
+            offers.push(offer)
+            localStorage.setItem("offers", JSON.stringify(offers))
 
         }
-        localStorage.setItem("companies", JSON.stringify(companies))
+
+
         location.reload()
     }
 }
 
 function deleteOffer() {
     var rowToDelete = event.target.parentNode.parentNode.parentNode,
-        index = rowToDelete.rowIndex;
+        index = rowToDelete.rowIndex,
+        offerCount = -1;
     rowToDelete.parentNode.removeChild(rowToDelete);
-    connectedCompany.offers.splice(index, 1)
-    console.log(connectedCompany);
-    localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
-    for (let i = 0; i < companies.length; i++) {
-        if (companies[i].email == connectedCompany.email) {
-            companies[i] = connectedCompany
-            localStorage.setItem("companies", JSON.stringify(companies))
-            break
+    for (let i = 0; i < offers.length; i++) {
+        if (offers[i].companyEmail == connectedCompany.email) {
+            offerCount++
+            if (offerCount == index) {
+                offers.splice(i, 1)
+                break
+            }
         }
 
     }
+    localStorage.setItem("offers", JSON.stringify(offers))
 }
 function updateVisibility() {
     offerVisibility()
@@ -106,7 +118,19 @@ function updateVisibility() {
     document.getElementById("addUpdateBtn").setAttribute("onclick", "updateOffer()");
     rowToUpdate = event.target.parentNode.parentNode.parentNode;
     index = rowToUpdate.rowIndex;
-    offertoUpdate = connectedCompany.offers[index];
+    var offertUpdate,
+        offerCount = -1;
+    for (let i = 0; i < offers.length; i++) {
+        if (offers[i].companyEmail == connectedCompany.email) {
+            offerCount++
+            if (offerCount == index) {
+                offertUpdate = offers[i]
+                break
+            }
+        }
+
+    };
+    offertoUpdate = offertUpdate
     document.getElementById("offerTitle").value = offertoUpdate.title
     document.getElementById("offerDescription").value = offertoUpdate.decription
     document.getElementById("offerEmail").value = offertoUpdate.email
@@ -116,20 +140,22 @@ function updateOffer() {
     var dat = new Date(),
         datee = dat.toLocaleDateString() + " " + dat.toLocaleTimeString();
     if (document.getElementById("offerImageInput").value == "") {
-        var offerImage = offertoUpdate.image
+        var file = offers[index].image.split(";"),
+            fileExtention = file[0].split("/").pop(),
+            offerImage = offers[index].image
     } else {
-        offerImage = document.getElementById("offerImageInput").files[0].name
+        fileExtention = document.getElementById("offerImageInput").files[0].name.split(".").pop()
+        offerImage = ""
     }
 
-    const offer = {
+    var offer = {
         title: document.getElementById("offerTitle").value,
         decription: document.getElementById("offerDescription").value,
+        companyEmail: connectedCompany.email,
         email: document.getElementById("offerEmail").value,
         image: offerImage,
         date: datee
     }
-
-    var fileExtention = offer.image.split(".").pop()
     // checking inputs
 
     if (offer.title.length < 2) {
@@ -159,15 +185,35 @@ function updateOffer() {
         document.getElementById("ODError").innerHTML = ""
         document.getElementById("OEError").innerHTML = ""
         document.getElementById("OIError").innerHTML = ""
-        connectedCompany.offers[index] = offer
-        localStorage.setItem("connectedCompany", JSON.stringify(connectedCompany))
-        for (let i = 0; i < companies.length; i++) {
-            if (companies[i].email == connectedCompany.email) {
-                companies[i] = connectedCompany
-                localStorage.setItem("companies", JSON.stringify(companies))
-                break
+
+        var offerCount = -1;
+
+        for (let i = 0; i < offers.length; i++) {
+            if (offers[i].companyEmail == connectedCompany.email) {
+                offerCount++
+                if (offerCount == index) {
+
+
+                    if (document.getElementById("offerImageInput").value !== "") {
+                        const image = document.getElementById("offerImageInput").files[0]
+                        const reader = new FileReader();
+                        reader.readAsDataURL(image)
+                        reader.onload = () => {
+                            offer.image = reader.result
+                            offers[i] = offer
+                            localStorage.setItem("offers", JSON.stringify(offers))
+                        }
+                    } else {
+                        offers[i] = offer
+                        localStorage.setItem("offers", JSON.stringify(offers))
+                    }
+
+                    break
+                }
             }
+
         }
+
         location.reload()
     }
 }

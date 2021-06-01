@@ -72,7 +72,6 @@ function registerCompany() {
         description: document.getElementById("companyDescription").value,
         email: document.getElementById("companyEmail").value,
         password: document.getElementById("companyPassword").value,
-        offers: []
     }
     // checking name
     var myName = company.name.trim()
@@ -247,7 +246,6 @@ function editProfile() {
             description: document.getElementById("editLastName").value,
             email: document.getElementById("editEmail").value,
             password: document.getElementById("editPassword").value,
-            offers: []
         }
         // checking name
         var newName = upValues.name.trim()
@@ -283,7 +281,6 @@ function editProfile() {
                     document.getElementById("EEError").innerHTML = "This e-mail already exists"
                 } else {
                     document.getElementById("EEError").innerHTML = ""
-                    upValues.offers = connectedCompany.offers
                     connectedCompany = upValues
                     for (let index = 0; index < companies.length; index++) {
                         if (companies[index].email == connectedCompany.email) {
