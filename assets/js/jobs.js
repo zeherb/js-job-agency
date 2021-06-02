@@ -2,9 +2,9 @@ const offers = JSON.parse(localStorage.getItem("offers")) || [];
 
 function affichage() {
     document.getElementById("pageContent").innerHTML = "";
-    offers.forEach(element => {
+    offers.forEach((element, index) => {
         document.getElementById("pageContent").innerHTML +=
-            "<div class='col-md-4 aOffer'><div class='service-item'><img src='" + element.image + "' alt='' />" +
+            "<div id='offer" + index + "' class='col-md-4 aOffer'><div class='service-item'><img src='" + element.image + "' alt='' />" +
             " <div class='down-content'> <h4>" + element.title + "</h4><div style='margin-bottom: 10px'>" +
             "<span><sup>DT</sup>" + element.salary + "</span></div><p>" + element.location + "</p>" +
             "<a href='#' class='filled-button' onclick='jobDetail()'>View More</a></div></div><br /></div>"
@@ -31,4 +31,11 @@ function search() {
         }
     };
 
+}
+function jobDetail() {
+    offerIndex = event.target.parentNode.parentNode.parentNode.id.split("").pop()
+    chosenOffer = offers[offerIndex]
+    localStorage.setItem("offerIndex", JSON.stringify(offerIndex))
+    localStorage.setItem("chosenOffer", JSON.stringify(chosenOffer))
+    window.location.href = "job-details.html"
 }

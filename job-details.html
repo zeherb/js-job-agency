@@ -156,9 +156,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1><sup>$</sup>70 000</h1>
+            <h1 id="salary"><sup>DT</sup></h1>
 
-            <span>Lorem ipsum dolor sit amet</span>
+            <span id="title"></span>
           </div>
         </div>
       </div>
@@ -171,36 +171,11 @@
             <div class="tabs-content" style="display: block">
               <h4>Description</h4>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Recusandae provident quae quidem minima cupiditate tempora
-                aperiam corrupti ducimus quos quisquam ipsam, laborum
-                voluptatibus reiciendis saepe, at, facere cum quo! Nesciunt.
-              </p>
+              <p id="location">Location :</p>
 
               <br />
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquam optio doloribus modi? Odio voluptatibus dolorem itaque
-                illo recusandae quasi unde eaque architecto, repellendus id
-                consequatur vel totam, doloremque distinctio quas explicabo iure
-                quisquam quis rem ipsa, accusantium! Perspiciatis, dicta,
-                recusandae?
-              </p>
-
-              <br />
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum
-                sunt dolore minima commodi laudantium accusamus nemo repellat
-                sapiente, eius error hic, autem. Dicta eveniet at consequatur
-                dolorum placeat in, laborum beatae temporibus, delectus
-                accusantium assumenda corporis, eum animi quaerat minus eos
-                necessitatibus ipsam! Officia ut ab aspernatur, voluptatem
-                blanditiis qui neque repellendus sapiente voluptas tempora
-                exercitationem ipsa vel, dolorum consequatur.
-              </p>
+              <p id="time">Work Time :</p>
             </div>
 
             <br />
@@ -209,116 +184,152 @@
           <div class="col-md-4">
             <br />
             <div>
-              <img
-                src="assets/images/product-1-720x480.jpg"
-                alt=""
-                class="img-fluid wc-image"
-              />
+              <img id="offerImage" src="" alt="" class="img-fluid wc-image" />
             </div>
             <br />
 
             <a
-              href="property-details.html"
+              href="##"
+              onclick="applyVisibility()"
               class="filled-button text-center"
               style="display: block"
               >Apply for this Job</a
             >
+            <br />
 
+            <div id="jobApplication" style="display: none">
+              <ul>
+                <li>
+                  <p>First Name:</p>
+                  <br />
+                  <div class="input-group flex-nowrap">
+                    <input
+                      id="firstName"
+                      type="text"
+                      class="form-control"
+                      placeholder="Fist Name"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                    <span style="color: red" class="error" id="FNError"></span>
+                  </div>
+                </li>
+                <li>
+                  <p>Last Name :</p>
+                  <br />
+                  <div class="input-group flex-nowrap">
+                    <input
+                      id="lastName"
+                      type="text"
+                      class="form-control"
+                      placeholder="Last Name"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                    <span style="color: red" class="error" id="LNError"> </span>
+                  </div>
+                </li>
+                <li>
+                  <p>E-mail :</p>
+                  <br />
+                  <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input
+                      id="Email"
+                      type="text"
+                      class="form-control"
+                      placeholder="email@example.com"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    /><span style="color: red" class="error" id="EError">
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <p>place your resume here :</p>
+                  <br />
+                  <div class="input-group mb-3">
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="inputGroupFile01"
+                    />
+                    <span style="color: red" class="error" id="FError"></span>
+                  </div>
+                </li>
+                <li>
+                  <p>Cover Letter :(optional)</p>
+                  <br />
+                  <div class="input-group flex-nowrap">
+                    <textarea
+                      id="coverLetter"
+                      class="form-control"
+                      aria-label="With textarea"
+                    ></textarea>
+                    <span
+                      style="color: red"
+                      class="error"
+                      id="existError"
+                    ></span>
+                  </div>
+                </li>
+
+                <li class="button">
+                  <button type="button" onclick="applyForJob()" class="btn">
+                    Apply
+                  </button>
+                </li>
+              </ul>
+            </div>
             <br />
           </div>
         </div>
+      </div>
 
-        <br />
+      <br />
 
-        <div class="row">
-          <div class="col-lg-9">
-            <div class="tabs-content" style="display: block">
-              <h4>About Employer</h4>
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="tabs-content" style="display: block">
+            <h4>About Employer</h4>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Recusandae provident quae quidem minima cupiditate tempora
-                aperiam corrupti ducimus quos quisquam ipsam, laborum
-                voluptatibus reiciendis saepe, at, facere cum quo! Nesciunt.
-              </p>
+            <p>
+              <strong id="companyName"></strong>
+            </p>
 
-              <br />
+            <br />
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquam optio doloribus modi? Odio voluptatibus dolorem itaque
-                illo recusandae quasi unde eaque architecto, repellendus id
-                consequatur vel totam, doloremque distinctio quas explicabo iure
-                quisquam quis rem ipsa, accusantium! Perspiciatis, dicta,
-                recusandae?
-              </p>
-
-              <br />
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum
-                sunt dolore minima commodi laudantium accusamus nemo repellat
-                sapiente, eius error hic, autem. Dicta eveniet at consequatur
-                dolorum placeat in, laborum beatae temporibus, delectus
-                accusantium assumenda corporis, eum animi quaerat minus eos
-                necessitatibus ipsam! Officia ut ab aspernatur, voluptatem
-                blanditiis qui neque repellendus sapiente voluptas tempora
-                exercitationem ipsa vel, dolorum consequatur.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-3">
-            <div class="tabs-content">
-              <h4>Contact Details</h4>
-
-              <p>
-                <span>Name</span>
-
-                <br />
-
-                <strong>John Smith</strong>
-              </p>
-
-              <p>
-                <span>Phone</span>
-
-                <br />
-
-                <strong>
-                  <a href="tel:123-456-789">123-456-789</a>
-                </strong>
-              </p>
-
-              <p>
-                <span>Mobile phone</span>
-
-                <br />
-
-                <strong>
-                  <a href="tel:456789123">456789123</a>
-                </strong>
-              </p>
-
-              <p>
-                <span>Email</span>
-
-                <br />
-
-                <strong>
-                  <a href="mailto:john@carsales.com">john@carsales.com</a>
-                </strong>
-              </p>
-            </div>
+            <p id="companyDescription">Description:</p>
           </div>
         </div>
 
-        <br />
+        <div class="col-lg-3">
+          <div class="tabs-content">
+            <h4>Contact Details</h4>
 
-        <br />
-        <br />
-        <br />
+            <p>
+              <span>Company Email :</span>
+
+              <br />
+
+              <strong id="companyEmail"></strong>
+            </p>
+            <p>
+              <span>Offer Email :</span>
+
+              <br />
+
+              <strong id="offerEmail"></strong>
+            </p>
+          </div>
+        </div>
       </div>
+
+      <br />
+
+      <br />
+      <br />
+      <br />
     </div>
 
     <!-- Footer Starts Here -->
@@ -551,6 +562,7 @@
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/accordions.js"></script>
     <script src="assets/js/extra.js"></script>
+    <script src="assets/js/job-details.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

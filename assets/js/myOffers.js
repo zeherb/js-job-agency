@@ -49,7 +49,8 @@ function addOffer() {
         companyEmail: connectedCompany.email,
         email: document.getElementById("offerEmail").value,
         image: offerImage,
-        date: datee
+        date: datee,
+        applications: []
     }
     var fileExtention = offer.image.split(".").pop()
     // checking inputs
@@ -109,8 +110,6 @@ function addOffer() {
         reader.readAsDataURL(image)
         reader.onload = () => {
             offer.image = reader.result
-            console.log(offer.image);
-            console.log(reader.result);
             offers.push(offer)
             localStorage.setItem("offers", JSON.stringify(offers))
 
@@ -185,7 +184,8 @@ function updateOffer() {
         companyEmail: connectedCompany.email,
         email: document.getElementById("offerEmail").value,
         image: offerImage,
-        date: datee
+        date: datee,
+        applications: []
     }
     // checking inputs
 
@@ -255,10 +255,12 @@ function updateOffer() {
                         reader.readAsDataURL(image)
                         reader.onload = () => {
                             offer.image = reader.result
+                            offer.applications = offers[i].applications
                             offers[i] = offer
                             localStorage.setItem("offers", JSON.stringify(offers))
                         }
                     } else {
+                        offer.applications = offers[i].applications
                         offers[i] = offer
                         localStorage.setItem("offers", JSON.stringify(offers))
                     }
