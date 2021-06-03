@@ -38,6 +38,8 @@ function ifConnected() {
 function signOut() {
     localStorage.removeItem("connectedUser")
     localStorage.removeItem("connectedCompany")
+    localStorage.removeItem("chosenOffer")
+    localStorage.removeItem("offerIndex")
     localStorage.setItem("demanded page", "Sign In")
     window.location.href = "sign.html"
 }
