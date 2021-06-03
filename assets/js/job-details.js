@@ -40,7 +40,8 @@ function applyForJob() {
         email: document.getElementById("Email").value,
         coverLetter: document.getElementById("coverLetter").value,
         resume: "",
-        applicationOwner: connectedUser.email
+        applicationOwner: connectedUser.email,
+        status: "Unchecked"
     }
     // checking inputs
     if (document.getElementById("inputGroupFile01").value !== "") {

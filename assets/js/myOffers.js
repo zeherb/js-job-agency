@@ -6,15 +6,16 @@ var companies = JSON.parse(localStorage.getItem("companies")) || [],
 
 function affichage() {
     var imageIndex = -1
-    offers.forEach(element => {
+    offers.forEach((element, index) => {
         imageIndex++
         if (connectedCompany.email == element.companyEmail) {
             document.getElementById("offers").innerHTML +=
-                "<tr class='card mb-3'><td class='row g-0' ><div class='col-md-4'><img src='" + element.image + "' alt='offer image'></div>" +
+                "<tr id='offer" + index + "' class='card mb-3'><td class='row g-0' ><div class='col-md-4'><img src='" + element.image + "' alt='offer image'></div>" +
                 "<div class='col-md-5'><div class='card-body'><h5 class='card-title'>" + element.title + "</h5>" + "<p class='card-text'>Location : " + element.location + "</p>" +
                 "<p class='card-text'>Work Time : " + element.time + "</p>" + "<p class='card-text'> Salary : " + element.salary + " DT</p>" +
                 "<p class='card-text'> Contact : " + element.email + "</p>" + "<p class='card-text''><small class='text-muted'>" + element.date + "</small></p></div></div>" +
-                "<div class='card-buttons col-md-3'><button type='button' class='btn btn-warning' onclick='updateVisibility()'>Update</button> <button type='button' class='btn btn-danger' onclick='deleteOffer()'>Delete</button></div></td></tr>"
+                "<div class='card-buttons col-md-3'><button type='button' class='btn btn-success' onclick='viewApplications()'>Applications<span class='badge bg-info text-dark'>" + element.applications.length +
+                "</span></button><button type='button' class='btn btn-warning' onclick='updateVisibility()'>Update</button> <button type='button' class='btn btn-danger' onclick='deleteOffer()'>Delete</button></div></td></tr>"
         }
 
     });
@@ -273,4 +274,22 @@ function updateOffer() {
 
         location.reload()
     }
+}
+function viewApplications() {
+    const offerIndex = event.target.parentNode.parentNode.parentNode.rowIndex;
+    var offerCount = -1
+    for (let i = 0; i < offers.length; i++) {
+        if (offers[i].companyEmail == connectedCompany.email) {
+            offerCount++
+            if (offerCount == offerIndex) {
+                chosenOffer = offers[i]
+                localStorage.setItem("chosenOffer", JSON.stringify(chosenOffer))
+                break
+            }
+        }
+
+    }
+    Ind = event.target.parentNode.parentNode.parentNode.id.split("").pop()
+    localStorage.setItem("offerIndex", JSON.stringify(Ind))
+    window.location.href = "applications.html"
 }

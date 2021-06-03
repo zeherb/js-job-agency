@@ -29,7 +29,7 @@ function ifConnected() {
             pageName = pagePath.split("/").pop()
         if (pageName == "sign.html") {
             document.getElementById("editLink").setAttribute("class", "dropdown-item active")
-        } else if (pageName == "myOffers.html") {
+        } else if (pageName == "myOffers.html" || pageName == "applications.html") {
             document.getElementById("offersLink").setAttribute("class", "dropdown-item active")
         }
     }

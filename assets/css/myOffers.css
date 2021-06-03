@@ -34,7 +34,6 @@ span.error {
 }
 #offersInputs {
   display: none;
-  position: absolute;
 }
 @media (max-width: 767.99px) {
   #formContent {
@@ -52,4 +51,9 @@ span.error {
 }
 .card-buttons button {
   margin: 10px;
+}
+span.badge {
+  position: absolute;
+  width: 25%;
+  left: 40%;
 }
